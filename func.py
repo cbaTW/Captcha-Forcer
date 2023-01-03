@@ -1,6 +1,6 @@
 import requests as rq
 
-host = "http://127.0.0.1:9898"
+host = "http://192.168.0.10:9898"
 file_path = "./lis5.txt"
 
 def ocr(b64):
