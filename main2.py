@@ -18,18 +18,21 @@ captcha_img_xpath = ''
 captcha_input_xpath = ''
 enter_xpath = ''
 default_path = ''
+result_path = ''
 
 def checkexe():
-  print(ntpath.basename(os.getcwd()))
   if(ntpath.basename(os.getcwd()) == "Captcha-Forcer"):
     default_path = "./default.json"
-    return default_path
+    result_path = "result.txt"
+    return default_path, result_path
 
   else:
     default_path = sys.executable
     default_path = os.path.dirname(default_path)
+    result_path =  default_path + "/result.txt"
+    print(result_path)
     default_path += "/default.json"
-    return default_path
+    return default_path, result_path
 
 
 def checkocr(default_path):
@@ -98,11 +101,8 @@ def attack(mode, url, input_xpath, testvalue, captcha_img_xpath, captcha_input_x
   elif(mode == 2):
     print("TODO")
 
-default_path = checkexe()
-print(default_path)
 #Set Default.json path
-
-print("default.json path:" + default_path)
+default_path, result_path = checkexe()
 
 if(checkocr(default_path)):
   mode = setting.mode_set()
@@ -110,6 +110,7 @@ if(checkocr(default_path)):
 
     result = ""
     url, input_xpath, input_wordlist, captcha_img_xpath, captcha_input_xpath, enter_xpath, success_box_xpath, retry_box_path, success_flag, retry_flag = setting.set(mode, default_path)
+    print("\n*****開始測試*****")
     with open(input_wordlist, mode='r', encoding='UTF-8') as doc:
       testvalue = doc.readline().strip('\n')
       while testvalue is not None and testvalue != '':
@@ -130,7 +131,7 @@ if(checkocr(default_path)):
     
     print("***RESULT***")
     print(result)
-    with open("result.txt", mode='w', encoding='UTF-8') as output:
+    with open(result_path, mode='w', encoding='UTF-8') as output:
       output.write(result)
 
   elif(mode == 2):
