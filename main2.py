@@ -6,6 +6,9 @@ from selenium.webdriver.support import expected_conditions as EC
 import json
 import func
 import setting
+import os
+import sys
+import ntpath
 
 mode = ''
 url = ''
@@ -14,9 +17,23 @@ input_wordlist = ''
 captcha_img_xpath = ''
 captcha_input_xpath = ''
 enter_xpath = ''
+default_path = ''
 
-def checkocr():
-  with open("default.json", mode='r', encoding='UTF-8') as f:
+def checkexe():
+  print(ntpath.basename(os.getcwd()))
+  if(ntpath.basename(os.getcwd()) == "Captcha-Forcer"):
+    default_path = "./default.json"
+    return default_path
+
+  else:
+    default_path = sys.executable
+    default_path = os.path.dirname(default_path)
+    default_path += "/default.json"
+    return default_path
+
+
+def checkocr(default_path):
+  with open(default_path , mode='r', encoding='UTF-8') as f:
     default = json.load(f)
 
   op = webdriver.ChromeOptions()
@@ -43,7 +60,7 @@ def checkocr():
 
 def attack(mode, url, input_xpath, testvalue, captcha_img_xpath, captcha_input_xpath, enter_xpath, success_box_xpath, retry_box_path, success_flag, retry_flag):
   
-  with open("default.json", mode='r', encoding='UTF-8') as f:
+  with open(default_path, mode='r', encoding='UTF-8') as f:
     default = json.load(f)
     host = "http://" + default["ocr_url"]["ip"] + ":" + default["ocr_url"]["port"]
   
@@ -80,13 +97,19 @@ def attack(mode, url, input_xpath, testvalue, captcha_img_xpath, captcha_input_x
 
   elif(mode == 2):
     print("TODO")
-#checkocr()
-if(checkocr()):
+
+default_path = checkexe()
+print(default_path)
+#Set Default.json path
+
+print("default.json path:" + default_path)
+
+if(checkocr(default_path)):
   mode = setting.mode_set()
   if(mode == 1):
 
     result = ""
-    url, input_xpath, input_wordlist, captcha_img_xpath, captcha_input_xpath, enter_xpath, success_box_xpath, retry_box_path, success_flag, retry_flag = setting.set(mode)
+    url, input_xpath, input_wordlist, captcha_img_xpath, captcha_input_xpath, enter_xpath, success_box_xpath, retry_box_path, success_flag, retry_flag = setting.set(mode, default_path)
     with open(input_wordlist, mode='r', encoding='UTF-8') as doc:
       testvalue = doc.readline().strip('\n')
       while testvalue is not None and testvalue != '':

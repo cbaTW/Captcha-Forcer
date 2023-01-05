@@ -20,7 +20,9 @@ def mode_set():
       continue
 
 #攻擊設定
-def set(mode):
+def set(mode, default_path):
+  with open(default_path, mode='r', encoding='UTF-8') as f:
+    default = json.load(f)
   if(mode == 1):
     url = input("\n測試的 URL:") or default["target_url"]
     input_xpath = input("爆破欄位的 Xpath:") or default["input"]["xpath"]
@@ -40,6 +42,3 @@ def set(mode):
 
   elif(mode == 3):
     print("**結束程式***")
-
-with open("default.json", mode='r', encoding='UTF-8') as f:
-  default = json.load(f)

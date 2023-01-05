@@ -1,5 +1,4 @@
 import requests as rq
-import json
 
 def ocr(b64, host):
   api_url = f"{host}/ocr/b64"
