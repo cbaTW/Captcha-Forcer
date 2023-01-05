@@ -1,0 +1,25 @@
+{
+  "ocr_url":{
+    "ip":"192.168.0.10",
+    "port":"9898"
+  },
+  "target_url":"https://netid.fcu.edu.tw/Apps/fpsw.aspx",
+  "input":{
+    "xpath":"/html/body/div/div[2]/div[1]/div/div/div/form/div[3]/div[2]/div/input",
+    "wordlist":"./test.txt"
+  },
+  "captcha":{
+    "img_xpath":"/html/body/div/div[2]/div[1]/div/div/div/form/div[3]/div[3]/div/a/img",
+    "input_xpath":"/html/body/div/div[2]/div[1]/div/div/div/form/div[3]/div[3]/div/input"
+  },
+  "enter_xpath":"/html/body/div/div[2]/div[1]/div/div/div/form/div[3]/p/input",
+  "success_box":{
+    "xpath":"/html/body/div/div[2]/div[1]/div/div/div/form/div[3]/span[2]",
+    "flag":"- 系統會將您的NID新密碼寄到啟用帳號時留下的備用Email信箱，若需變更請至個人綜合資料維護修改。"
+  },
+  "retry_box":{
+    "xpath":"/html/body/div/div[2]/div[1]/div/div/div/form/div[3]/span[2]",
+    "flag":"驗證碼錯誤，請重新輸入！"
+  }
+
+}

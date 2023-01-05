@@ -16,3 +16,5 @@ docker run -p 9898:9898 -d ocr_server:v1
 ```
 
 THEN, run test.py
+
+wordlist 需使用絕對路徑！
