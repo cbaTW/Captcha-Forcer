@@ -75,6 +75,8 @@ if(mode == 1):
   
   print("***RESULT***")
   print(result)
+  with open("result.txt", mode='w', encoding='UTF-8') as output:
+    output.write(result)
 
 elif(mode == 2):
   print("TODO")
